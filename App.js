@@ -43,25 +43,32 @@ export default class Demo extends Component {
     this.state = {
         currentPage:0,
         dataSource:ds.cloneWithRows([
-          '商品1',
-          '商品2',
-          '商品3',
-        ]
-      ),
+          { image:require('./Resources/cars/car1.jpg'),
+           title:'商品1',
+           subTitle:'描述1'
+         },{
+           image:require('./Resources/cars/car2.jpg'),
+           title:'商品2',
+           subTitle:'描述2'
+         },{
+           image:require('./Resources/cars/car3.jpg'),
+           title:'商品3',
+           subTitle:'描述3'
+         }]),
       searchText:'',
       advertisements:[
         {
-          image:require('./Resources/tooopen_21382885.jpg'),
+          image:require('./Resources/advertisement/ad1.jpg'),
           identify:'1',
           backgroundColor:'gray'
         },
         {
-          image:require('./Resources/tooopen_sy_239205847165.jpg'),
+          image:require('./Resources/advertisement/ad2.jpg'),
           identify:'2',
           backgroundColor:'yellow'
         },
         {
-          image:require('./Resources/tooopen_sy_239783236297.jpg'),
+          image:require('./Resources/advertisement/ad3.jpg'),
           identify:'3',
           backgroundColor:'green'
         }
@@ -140,7 +147,9 @@ export default class Demo extends Component {
       return(
         <TouchableHighlight onPress={()=>Alert.alert('你单击了商品列表',null,null)}>
         <View style={styles.row}>
-          <Text>{rowData}</Text>
+          <Image source={rowData.image} style = {styles.productImage}></Image>
+          <Text style={styles.productTitle}>{rowData.title}</Text>
+          <Text style={styles.productSubTitle}>{rowData.subTitle}</Text>
         </View>
         </TouchableHighlight>
       );
@@ -183,7 +192,7 @@ const styles = StyleSheet.create({
     height:180,
   },
   indicator:{
-    position:'absolute',
+    position: 'absolute',
     top: 160,
     flexDirection: 'row',
   },
@@ -199,5 +208,24 @@ const styles = StyleSheet.create({
     borderRadius: circleSize/2,
     backgroundColor: 'white',
     marginHorizontal: circleMargin,
-  }
+  },
+  row:{
+    height:60,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  productImage:{
+    marginLeft: 10,
+    width: 40,
+    height: 40,
+  },
+  productText:{
+
+  },
+  productTitle:{
+
+  },
+  productSubTitle:{
+
+  },
 });
