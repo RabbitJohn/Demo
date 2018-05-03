@@ -20,6 +20,7 @@ import {
   TouchableHighlight,
   StatusBar,
   Image,
+  RefreshControl
 } from 'react-native';
 
 const ds = new ListView.DataSource({
@@ -73,6 +74,8 @@ export default class Demo extends Component {
           backgroundColor:'green'
         }
       ],
+      isRefreshing:false,
+
     };
   }
   render() {
@@ -121,7 +124,10 @@ export default class Demo extends Component {
            </View>
           </View>
         <View style={styles.products}>
-          <ListView dataSource={this.state.dataSource} renderRow={this._renderRow}/>
+          <ListView dataSource={this.state.dataSource} renderRow={this._renderRow}
+          renderSeparator={this._renderSeparator}
+          refreshControl={this._renderRefreshControl()}
+          />
         </View>
       </View>
     );
@@ -148,13 +154,34 @@ export default class Demo extends Component {
         <TouchableHighlight onPress={()=>Alert.alert('你单击了商品列表',null,null)}>
         <View style={styles.row}>
           <Image source={rowData.image} style = {styles.productImage}></Image>
-          <Text style={styles.productTitle}>{rowData.title}</Text>
-          <Text style={styles.productSubTitle}>{rowData.subTitle}</Text>
+          <View style={styles.productText}>
+            <Text style={styles.productTitle}>{rowData.title}</Text>
+            <Text style={styles.productSubTitle}>{rowData.subTitle}</Text>
+          </View>
         </View>
         </TouchableHighlight>
       );
   }
 
+  _renderSeparator(sectionID,rowID,adjacentRowHighlightd){
+    return(<View key={`${sectionID}-${rowID}`} style={styles.divider}></View>);
+  }
+
+  _renderRefreshControl(){
+    return(<RefreshControl refreshing={this.state.isRefreshing}
+      tintColor={'#FF0000'}
+      title={'正在刷新数据，请稍后...'}
+      titleColor={'#0000FF'}
+      onRefresh={this._onRefresh}
+      />);
+  }
+
+  _onRefresh = ()=>{
+    this.setState({isRefreshing:true});
+    setTimeout(() => {
+      this.setState({isRefreshing:false});
+    }, 2000);
+  }
 }
 
 const styles = StyleSheet.create({
@@ -184,8 +211,8 @@ const styles = StyleSheet.create({
   },
   row:{
     height:60,
-    justifyContent:'center',
-    alignItems:'center'
+    flexDirection:'row',
+    backgroundColor:'white'
   },
   advertisementContent:{
     width:Dimensions.get('window').width,
@@ -215,17 +242,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   productImage:{
-    marginLeft: 10,
     width: 40,
     height: 40,
+    marginLeft: 10,
+    marginRight: 10,
+    alignSelf : 'center'
   },
   productText:{
-
+      flex:1,
+      marginTop:10,
+      marginBottom:10
   },
   productTitle:{
-
+      flex:3,
+      fontSize:16
   },
   productSubTitle:{
-
+    flex:2,
+    fontSize:14,
+    color:'gray'
   },
+  divider:{
+    height:1,
+    width:Dimensions.get('window').width-5,
+    marginLeft:5,
+    backgroundColor:'lightgray'
+  }
 });
