@@ -23,6 +23,7 @@ import {
   RefreshControl,
 } from 'react-native';
 
+
 const ds = new ListView.DataSource({
   //返回一个row改变的条件
   rowHasChanged:(r1,r2)=> r1 !== r2
@@ -52,7 +53,7 @@ export default class Home extends Component {
       // Note: By default the icon is only shown on iOS. Search the showIcon option below.
       // tabBarIcon: ({ tintColor }) => (
       //   <Image
-      //     source={require('./Resources/homepage.png')}
+      //     source={require('../Resources/homepage.png')}
       //     style={[styles.icon, { tintColor: tintColor }]}
       //   />
       // ),
@@ -63,15 +64,15 @@ export default class Home extends Component {
     this.state = {
         currentPage:0,
         dataSource:ds.cloneWithRows([
-          { image:require('./Resources/cars/car1.jpg'),
+          { image:require('../Resources/cars/car1.jpg'),
            title:'商品1',
            subTitle:'描述1'
          },{
-           image:require('./Resources/cars/car2.jpg'),
+           image:require('../Resources/cars/car2.jpg'),
            title:'商品2',
            subTitle:'描述2'
          },{
-           image:require('./Resources/cars/car3.jpg'),
+           image:require('../Resources/cars/car3.jpg'),
            title:'商品3',
            subTitle:'描述3'
       }]),
@@ -84,12 +85,12 @@ export default class Home extends Component {
           backgroundColor:'gray'
         },
         {
-          image:require('./Resources/advertisement/ad2.jpg'),
+          image:require('../Resources/advertisement/ad2.jpg'),
           identify:'2',
           backgroundColor:'yellow'
         },
         {
-          image:require('./Resources/advertisement/ad3.jpg'),
+          image:require('../Resources/advertisement/ad3.jpg'),
           identify:'3',
           backgroundColor:'green'
         }

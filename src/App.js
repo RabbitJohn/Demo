@@ -26,7 +26,7 @@ const App = TabNavigator({
         headerStyle:{backgroundColor:'#aabb11'},
         tabBarIcon: ({ tintColor }) => (
           <Image
-            source={require('./Resources/homepage.png')}
+            source={require('../Resources/homepage.png')}
             style={[styles.icon, { tintColor: tintColor }]}
           />
         ),  
@@ -46,7 +46,7 @@ const App = TabNavigator({
               // Note: By default the icon is only shown on iOS. Search the showIcon option below.
       tabBarIcon: ({ tintColor }) => (
         <Image
-          source={require('./Resources/mine.png')}
+          source={require('../Resources/mine.png')}
           style={[styles.icon, { tintColor: tintColor }]}
         />
       ),

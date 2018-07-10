@@ -14,7 +14,7 @@ export default class ProfileView extends Component{
       // Note: By default the icon is only shown on iOS. Search the showIcon option below.
       tabBarIcon: ({ tintColor }) => (
         <Image
-          source={require('./Resources/mine.png')}
+          source={require('../Resources/mine.png')}
           style={[styles.icon, { tintColor: tintColor }]}
         />
       ),
@@ -28,15 +28,15 @@ export default class ProfileView extends Component{
             userName:'Li Lei',
             datasource:ds.cloneWithRows({
                 "row1":{
-                    image:require('./Resources/profile/profile_order.png'),
+                    image:require('../Resources/profile/profile_order.png'),
                     content:'我的订单',
                 },
                 "row2":{
-                    image:require('./Resources/profile/profile_jifen.png'),
+                    image:require('../Resources/profile/profile_jifen.png'),
                     content:"积分商城",
                 },
                 "row3":{
-                    image:require('./Resources/profile/profile_setting.png'),
+                    image:require('../Resources/profile/profile_setting.png'),
                     content:"设置",
                 }
             },),
