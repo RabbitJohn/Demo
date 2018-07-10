@@ -24,6 +24,7 @@ import {
 } from 'react-native';
 
 const ds = new ListView.DataSource({
+  //返回一个row改变的条件
   rowHasChanged:(r1,r2)=> r1 !== r2
 });
 
@@ -73,7 +74,8 @@ export default class Home extends Component {
            image:require('./Resources/cars/car3.jpg'),
            title:'商品3',
            subTitle:'描述3'
-         }]),
+      }]),
+
       searchText:'',
       advertisements:[
         {
@@ -99,15 +101,43 @@ export default class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar backgroundColor={'blue'}
-                   barStyle={'default'}
-                   networkActivityIndicatorVisible={true}
-        >   
-        </StatusBar>
-        <View style={styles.searchbar}>
+          <StatusBar backgroundColor={'blue'}
+                    barStyle={'default'}
+                    networkActivityIndicatorVisible={true}
+          >   
+          </StatusBar>
+
+          <View style={styles.advertisement}>
+            <ScrollView ref="scrollView"
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        pagingEnabled={true}
+            >
+            {
+              this.state.advertisements.map((advertisement,index)=>{
+                return (
+                    <TouchableHighlight key={advertisement.identify} onPress={()=>Alert.alert('你单击了轮播图',null,null)}> 
+                      <View style={[styles.advertisementContent,{backgroundColor:advertisement.backgroundColor},]}>
+                      <Image style={styles.advertisementContent} source={advertisement.image}></Image>
+                      <Text  text={advertisement.identify}></Text>
+                      </View>
+                    </TouchableHighlight>
+                  );
+                })
+            }         
+            </ScrollView>
+            <View style={ [ styles . indicator, { left : 15 }]}> 
+              {this.state.advertisements.map((advertisement, index ) => { 
+                return <View key= {index} style={ (index === this.state . currentPage) ? styles.circleSelected : styles.circle}/> 
+                })}
+            </View>
+
+          </View>
+
+          <View style={styles.searchbar}>
             <TextInput style={styles.input} placeholder='搜索商品' onChangeText={
               (text)=>{
-                 this.setState({searchText:text});
+                this.setState({searchText:text});
               }
             }>
             </TextInput>      
@@ -116,31 +146,7 @@ export default class Home extends Component {
             }}>
             </Button>
         </View>
-        <View style={styles.advertisement}>
-          <ScrollView ref="scrollView"
-                      horizontal={true}
-                      showsHorizontalScrollIndicator={false}
-                      pagingEnabled={true}
-          >
-           {
-             this.state.advertisements.map((advertisement,index)=>{
-               return (
-                  <TouchableHighlight key={advertisement.identify} onPress={()=>Alert.alert('你单击了轮播图',null,null)}> 
-                    <View style={[styles.advertisementContent,{backgroundColor:advertisement.backgroundColor},]}>
-                    <Image style={styles.advertisementContent} source={advertisement.image}></Image>
-                    <Text  text={advertisement.identify}></Text>
-                    </View>
-                  </TouchableHighlight>
-                );
-              })
-           }         
-          </ScrollView>
-          <View style={ [ styles . indicator, { left : 15 }]}> 
-            {this.state.advertisements.map((advertisement, index ) => { 
-              return <View key= {index} style={ (index === this.state . currentPage) ? styles.circleSelected : styles.circle}/> 
-              })}
-           </View>
-          </View>
+
         <View style={styles.products}>
           <ListView dataSource={this.state.dataSource} renderRow={this._renderRow}
           renderSeparator={this._renderSeparator}
@@ -231,11 +237,6 @@ const styles = StyleSheet.create({
   },
   products: {
     flex:1,
-  },
-  row:{
-    height:60,
-    flexDirection:'row',
-    backgroundColor:'white'
   },
   advertisementContent:{
     width:Dimensions.get('window').width,

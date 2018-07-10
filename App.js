@@ -38,6 +38,7 @@ const App = TabNavigator({
 ),
   Profile:StackNavigator({
     Profile:{
+      
       screen:ProfileView,
 
       navigationOptions:({
