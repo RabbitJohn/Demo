@@ -25,7 +25,7 @@ export default class ProfileView extends Component{
         super(props);
 
         this.state={
-            userName:'Li Lei',
+            userName:'请登录',
             datasource:ds.cloneWithRows({
                 "row1":{
                     image:require('../Resources/profile/profile_order.png'),
@@ -45,7 +45,7 @@ export default class ProfileView extends Component{
 
     render(){
         return(<View style={styles.container}>
-            <ListView dataSource={this.state.datasource} renderRow = {this._renderRow}></ListView>
+            <ListView dataSource={this.state.datasource} renderRow = {this._renderRow} renderHeader={this._renderHeader}></ListView>
         </View>);
     }
 
@@ -63,9 +63,16 @@ export default class ProfileView extends Component{
         );
     }
     
+    _renderHeader = ()=>{
+        const {navigate} = this.props.navigation;
+        return (<View style = {styles.tableHeader}>
+            <Button style={styles.headerIcon} title={this.state.userName} onPress = {()=>{
+                navigate('Login')
+            }}></Button>
+            </View>);
+    }
 
 }
-
 
 
 const styles = StyleSheet.create({
@@ -75,6 +82,17 @@ const styles = StyleSheet.create({
     listview:{
         flex:1
         // alignSelf:'center',
+    },
+    tableHeader:{
+        height:100,
+        flexDirection:'row',
+        justifyContent :'center',
+        alignItems:'center',
+    },
+    headerIcon:{
+        width:50,
+        height:50,
+        marginTop:25,
     },
     listviewItem:{
         height:60,

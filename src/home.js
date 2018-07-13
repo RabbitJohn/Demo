@@ -176,11 +176,9 @@ export default class Home extends Component {
     },2000);
   }  
   _renderRow = (rowData,sectionID,rowID) => {
-    const {navigate} = this.props.navigation;
       return(
         <TouchableHighlight onPress={()=>{
-          // Alert.alert('你单击了商品列表',null,null)
-          navigate('Login')
+          Alert.alert('你单击了商品列表',null,null)
         }}>
         <View style={styles.row}>
           <Image source={rowData.image} style = {styles.productImage}></Image>
